@@ -31,6 +31,7 @@ setuptools.setup(
 
         # For HTTP connections
         'requests',
+        'urllib',
 
         # For type safety
         'typeguard'
