@@ -256,7 +256,7 @@ class PagewiseFisher(GObject.GObject, Generic[X], abc.ABC, metaclass=_Meta):
 
         with self._create_http_session() as session:
             if page_soup is None:
-                page_soup = self._get_soup_from_url(session, self.query_url)
+                page_soup = self._get_soup_from_url(session, self.next_url)
 
             yield from self._do_fish(session, page_soup, start_at)
 
