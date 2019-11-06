@@ -42,36 +42,21 @@ class GSFisher(PagewiseFisher[X], abc.ABC):
         # have not yet been set.
         self._new_cookies_needed = False
         self.connect('notify::query-url', self._on_query_url_changed)
-
-    def _on_query_url_changed(self, *args):
-        self._new_cookies_needed = False
-        self.notify('new-cookies-needed')
+        self.connect('notify::cookies', self._on_cookies_changed)
 
     @GObject.Property(type=bool, default=False)  # read-only
     def new_cookies_needed(self):
         return self._new_cookies_needed
 
-    @GObject.Property
-    def cookies(self):
-        """
-        The cookies this fisher currently sends to GS upon requests.
-        """
-        return super().cookies
+    def _on_query_url_changed(self, *args):
+        self._new_cookies_needed = False
+        self.notify('new-cookies-needed')
 
-    @cookies.setter
-    @typechecked
-    def cookies(self, cookies: RequestsCookieJar):
-        """
-        Set the cookies this fisher sends to GS upon requests.
-        Can be used to make the fisher take over another GS session.
-        If *cookies* contains the GS session cookies (NID and GSP),
-        the 'new-cookies-needed' property is set to `False`.
-        """
+    def _on_cookies_changed(self, *args):
         if self.new_cookies_needed \
-                and {'NID', 'GSP'}.issubset(set(cookies.keys())):
+                and {'NID', 'GSP'}.issubset(set(self.cookies.keys())):
             self._new_cookies_needed = False
             self.notify('new-cookies-needed')
-        super().cookies = cookies
 
     def _find_next_url(self, page_soup: BeautifulSoup) -> str:
         """
