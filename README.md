@@ -15,22 +15,20 @@ Let's say you are interested in the first 200 citations of a paper
 according to Google Scholar
 Then this could be your query:
 ```python
-from pubfisher.interactive import scrape_interactive
-from pubfisher.scrapers import PublicationGScraper
+from pubfisher.fishers.googlescholar import PublicationGSFisher
 from itertools import islice
 
 
 def my_query():
-    scraper = PublicationGScraper()
+    fisher = PublicationGSFisher()
     
-    scraper.query_matches_of_key_words('Parachute use to prevent death '
-                                       'and major trauma related to '
-                                       'gravitational challenge: '
-                                       'systematic review of randomised '
-                                       'controlled trials')
+    fisher.look_for_key_words('Parachute use to prevent death '
+                              'and major trauma related to '
+                              'gravitational challenge: '
+                              'systematic review of randomised '
+                              'controlled trials')
     
-    publications = scrape_interactive(scraper)
-    return islice(publications, 200)
+    return islice(fisher.fish_all(), 200)
 ```
 
 Using one and the same scraper, you can perform lots of queries.
