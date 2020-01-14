@@ -49,7 +49,7 @@ class Document(GObject.GObject):
 class Publication(GObject.GObject):
 
     url = GObject.Property(type=str)
-    e_print = GObject.Property(type=str, default=None)
+    eprint = GObject.Property(type=str, default=None)
     bibtex = GObject.Property(type=str)
 
     @typechecked
@@ -57,7 +57,7 @@ class Publication(GObject.GObject):
                  document: Document,
                  year: Optional[int],
                  url: str,
-                 e_print: Optional[str]=None,
+                 eprint: Optional[str]=None,
                  gs_pub_id: Optional[str] = None,
                  bibtex: Optional[str] = None,
                  *args,
@@ -66,7 +66,7 @@ class Publication(GObject.GObject):
         self._document = document
         self._year = year
         self.url = url
-        self.e_print = e_print
+        self.eprint = eprint
         self._gs_pub_id = gs_pub_id
         self.bibtex = bibtex
 

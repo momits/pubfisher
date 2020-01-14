@@ -335,6 +335,12 @@ class PublicationGSFisher(GSFisher[Publication]):
 
                 inner_row_soup = outer_row_soup.find('div', class_='gs_ri')
 
+                if inner_row_soup.find('span', class_='gs_ct1',
+                                       text='[CITATION]'):
+                    # The row is a citation without an abstract
+                    # and without a link to an e-print. Skip that.
+                    continue
+
                 # a string used by GS to index the contained publication
                 gs_info_id = outer_row_soup['data-cid']
 
@@ -397,3 +403,18 @@ class PublicationGSFisher(GSFisher[Publication]):
                     pub.document.authors = bibtex['author']
                 if update_year:
                     pub.document.year = int(bibtex['year'])
+
+    @typechecked
+    def download_e_print(self, pub: Publication, path: str):
+        """
+        Downloads the e-print of *pub* to *path* and updates *pub* to
+        reference the downloaded e-print.
+        """
+        assert pub.eprint
+
+        with open(path, 'wb') as f:
+            with self._create_http_session() as session:
+                resp = session.get(pub.eprint)
+                f.write(resp.content)
+
+        pub.eprint = path

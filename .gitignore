@@ -3,6 +3,6 @@ dist/
 venv/
 __pycache__/
 
-pubfisher.egg-info
+#pubfisher.egg-info
 
 .idea/
