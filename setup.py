@@ -12,6 +12,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/momits/pubfisher/',
+    package_dir={'': 'src'},
     packages=setuptools.find_packages('src'),
     classifiers=[
         'Programming Language :: Python :: 3',
@@ -31,7 +32,6 @@ setuptools.setup(
 
         # For HTTP connections
         'requests',
-        'urllib',
 
         # For type safety
         'typeguard'
