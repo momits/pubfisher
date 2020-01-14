@@ -1,0 +1,56 @@
+
+@define-color grey #edebe9;
+@define-color dark-grey #4d4e53;
+@define-color light-grey #8b9eab;
+@define-color light-blue #b3d4fc;
+@define-color dark-blue #708090;
+@define-color light-yellow #fff9e5;
+
+
+* {
+  font: 12pt "Fira Sans Light";
+  color: @dark-grey;
+}
+
+*:selected {
+  background: @light-blue
+}
+
+scrolledwindow {
+  border: none;
+  background: @grey;
+}
+
+list {
+  background: none;
+}
+
+frame > border {
+  border-radius: 5px;
+}
+
+.abstract {
+   padding-top: 40px;
+   padding-left: 40px;
+   padding-right: 40px;
+}
+
+.h1 {
+  font: 20pt "Fira Sans";
+}
+
+.h2 {
+  font: 14pt "Fira Sans";
+}
+
+.h3 {
+  font: 14pt "Fira Sans";
+}
+
+.tag {
+  font: 12pt "Fira Sans";
+  background: @light-blue;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 5px;
+}
